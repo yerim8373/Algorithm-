@@ -1,0 +1,80 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Problem37 {
+    public static void main(String[] args) {
+        int bridge_length = 100;
+        int weight = 100;
+        int[] truck_weights = {10};
+
+        // list변환
+        List<Integer> list = Arrays.stream(truck_weights).boxed().collect(Collectors.toList());
+        //생성자
+        Method method = new Method(bridge_length, weight);
+        int time = 0;
+        //시작
+        for (int i = 0; ; i++) {
+            // 시간 +1초
+            time++;
+            //차 빼기
+            method.pullCar(time);
+            //차 넣기
+            if (list.size() !=0 && method.putCar(list.get(0), time)) {
+                list.remove(0);
+            }
+            //모든 차가 진입하고, 진입한 차 댓수가 0
+            if (list.size() == 0 && method.carMap.size() == 0) {
+                break;
+            }
+        }
+        //차가 0대여야함
+        System.out.println(list);
+        //걸린시간
+        System.out.println(time + "초");
+    }
+}
+
+class Method {
+    int bridge_length;
+    int weight;
+
+    //생성자
+    public Method(int bridge_length, int weight) {
+        this.bridge_length = bridge_length;
+        this.weight = weight;
+    }
+    //class var
+    int sum = 0;
+    Map<Integer, Integer> carMap = new HashMap<>();
+    int carNum = carMap.size();
+
+    //main method
+    //차 넣기
+    public boolean putCar(int a, int time) {
+        System.out.println("time:" + time + " 차 넣기");
+        if (capacity(a, weight)) {
+            sum = sum + a;
+            carMap.put(time, a);
+            System.out.println("time: " + time + " 무게: " + a + " 차량 진입");
+            System.out.println("과중무게: " + sum);
+            return true;
+        }
+        return false;
+    }
+    // 차 빼기
+    public void pullCar(int time) {
+        System.out.println("time:" + time + " 차빼기");
+        if (carMap.get(time - bridge_length) != null) {
+
+            System.out.println(time-bridge_length);
+            sum = sum - carMap.get(time - bridge_length);
+            carMap.remove(time - bridge_length);
+            System.out.println("과중무게: " + sum);
+        }
+    }
+    // minor
+    // capa
+    public boolean capacity(int a, int weight) {
+        return sum + a <= weight;
+    }
+}
