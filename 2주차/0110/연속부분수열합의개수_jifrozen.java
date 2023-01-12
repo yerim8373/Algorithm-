@@ -12,6 +12,7 @@ class Solution {
                 set.add(elements[i] + elements[j]);
             }
         }
+
         return set.size();
     }
 }
