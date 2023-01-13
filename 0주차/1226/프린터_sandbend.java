@@ -1,6 +1,6 @@
 import java.util.*;
 
-// 프로그래머스 프린터
+// 프로그래머스 프린터 스택/큐
 public class Main11 {
     public int solution(int[] priorities, int location) {
         int answer = 0;
