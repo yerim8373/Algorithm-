@@ -1,0 +1,33 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Test13 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        sc.nextLine();
+
+        while (T-- > 0) {
+            String str = sc.nextLine();
+            Stack<Character> stack = new Stack<>();
+            boolean isVPS = true;
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (c == '(') {
+                    stack.push(c);
+                } else {
+                    if (stack.isEmpty()) {
+                        isVPS = false;
+                        break;
+                    }
+                    stack.pop();
+                }
+            }
+            if (!stack.isEmpty()) {
+                isVPS = false;
+            }
+            System.out.println(isVPS ? "YES" : "NO");
+        }
+        sc.close();
+    }
+}
