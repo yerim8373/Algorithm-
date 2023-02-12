@@ -1,0 +1,23 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/1845
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public int solution(int[] nums) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int num : nums) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+        
+        int n = nums.length;
+        int half = n / 2;
+        int types = count.size();
+        
+        if (types <= half) {
+            return types;
+        } else {
+            return half;
+        }
+    }
+}
