@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Test14 {
+    static int answer;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int test = sc.nextInt();
+        for(int i = 0; i<test; i++) {
+            answer = 0;
+            int target = sc.nextInt();
+            DFS(target, 0);
+            System.out.println(answer);
+        }
+    }
+    //dfs
+    static void DFS ( long request, long sum){
+        if (sum >= request) {
+            if (sum == request) {
+                answer++;
+            }
+            return;
+        }
+        DFS(request, sum + 1);
+        DFS(request, sum + 2);
+        DFS(request, sum + 3);
+    }
+}
