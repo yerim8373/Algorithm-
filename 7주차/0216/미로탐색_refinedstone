@@ -1,0 +1,60 @@
+import java.util.*;
+
+class Test22 {
+    static int[][] arrays;
+    static boolean[][] visited;
+    static List<Integer> dx = List.of(-1, 1, 0, 0); // x 방향으로 이동하는 상대좌표
+    static List<Integer> dy = List.of(0, 0, 1, -1); // y 방향으로 이동하는 상대좌표
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        arrays = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            String s = sc.next();
+            for (int j = 0; j < m; j++) {
+                arrays[i][j] = s.charAt(j) - '0';
+            }
+        }
+        //방문
+        visited = new boolean[n][m];
+        //시작 방문
+        visited[0][0] = true;
+        //Queue 생성
+        Queue<List<Integer>> queue = new LinkedList<>();
+        queue.offer(List.of(0, 0));
+        //
+        int answer = 0;
+        //루프 시작
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                List<Integer> cur = queue.poll();
+                Integer curX = cur.get(0);
+                Integer curY = cur.get(1);
+
+                if (curX == n - 1 && curY == m - 1) {
+                    System.out.println(answer + 1);
+                    return;
+                }
+                for (int j = 0; j < 4; j++) {
+                    Integer nextX = curX + dx.get(j);
+                    Integer nextY = curY + dy.get(j);
+
+                    //조건 탈주 시
+                    if (nextX > n - 1 || nextY > m - 1 || nextX<0 || nextY <0) continue;
+
+                    //조건 확인
+                    if(arrays[nextX][nextY] == 1 && !visited[nextX][nextY]){
+                        visited[nextX][nextY]=true;
+                        queue.offer(List.of(nextX,nextY));
+                    }
+                }
+            }
+            answer++;
+        }
+    }
+}
