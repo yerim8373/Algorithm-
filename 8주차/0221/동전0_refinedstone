@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Test24 {
+    static int[] array;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = sc.nextInt();
+        }
+        // 동전 합계 , 동전 갯수
+        int sum = 0;
+        int count = 0;
+
+        for (int i = 1; i < n+1; i++) {
+            // 결과값 반환
+            if (sum == k){
+                System.out.println(count);
+                break;
+            }
+            // 그리디 탐색..
+            if (array[n-i] + sum <= k) {
+                sum += array[n-i];
+                count++;
+                i--;
+            }
+        }
+
+    }
+
+
+}
+
