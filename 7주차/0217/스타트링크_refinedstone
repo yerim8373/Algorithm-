@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class Test23 {
+
+    static boolean[] visited;
+    static int[] array;
+    static List<Integer> dy = new ArrayList<Integer>();
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int f = sc.nextInt(); //총 f층
+        int s = sc.nextInt(); //현재 s층
+        int g = sc.nextInt(); //가야할 g층
+        int u = sc.nextInt(); //위로 u층
+        int d = sc.nextInt(); //아래로 d층
+
+        //기본 세팅
+        int answer = 0;
+        dy.add(u);
+        dy.add(-d);
+        //방문
+        visited = new boolean[f + 1];
+        //방문 시작
+        visited[s] = true;
+        //Queue 생성
+        Queue<Integer> queue = new LinkedList<>();
+        //첫번째 위치 저장
+        queue.offer(s);
+        //루프시작
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                //현재 위치 꺼내기
+                int cur = queue.poll();
+                //끝내는 조건
+                if (cur == g) {
+                    System.out.println(answer);
+                    return;
+                }
+
+                for (int j = 0; j < 2; j++) {
+                    int nex = cur + dy.get(j);
+                    //초기 조건
+                    if (nex > f || nex < 1) continue;
+                    //방문 조건
+                    if (!visited[nex]) {
+                        visited[nex] = true;
+                        queue.offer(nex);
+                    }
+                }
+            }
+            answer++;
+        }
+        System.out.println("use the stairs");
+    }
+
+
+}
