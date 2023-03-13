@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int maxSum = arr[0]; // 현재까지의 부분합 중 최댓값
+        int curSum = arr[0]; // 현재까지의 부분합
+
+        for (int i = 1; i < n; i++) {
+            // i번째 수를 포함하는 부분합과 i번째 수부터 새로운 부분합 중 최댓값을 선택
+            curSum = Math.max(curSum + arr[i], arr[i]);
+            // 최댓값 갱신
+            maxSum = Math.max(maxSum, curSum);
+        }
+
+        System.out.println(maxSum);
+    }
+}
