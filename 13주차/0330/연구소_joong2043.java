@@ -6,8 +6,6 @@ import java.lang.*;
 
 public class Main{
 
-
-
     static int[][] arr;
     static int[][] wallArr;
     static int[][] tempArr;
