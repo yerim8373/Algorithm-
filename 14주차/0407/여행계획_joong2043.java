@@ -34,6 +34,7 @@ public class Main{
 
         st = new StringTokenizer(br.readLine());
 
+        // 모든 여행 계획지의 parent 값이 동일한 지 확인하기
         int p = findParent(Integer.parseInt(st.nextToken()));
         boolean answer = true;
         for (int i = 0; i < m-1; i++){
@@ -55,10 +56,12 @@ public class Main{
         bw.close();
     }
 
+    // union 합집합 만들기
     static void union(int a, int b){
         a = findParent(a);
         b = findParent(b);
 
+        // parent의 값은 작은 값을 일반적으로 넣기 때문에 크기 비교 후 작은 값으로 넣는다.
         if (a < b){
             parent[b] = a;
         }
@@ -67,6 +70,7 @@ public class Main{
         }
     }
 
+    // parent 값을 재귀 함수를 통해서 찾기
     static int findParent(int num){
         if (parent[num] == num){
             return num;
