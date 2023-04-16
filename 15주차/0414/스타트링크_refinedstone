@@ -1,0 +1,59 @@
+package 백준.bfs_dfs;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class 스타트링크 {
+    static int f, s, g, u, d;
+    static int[] dy;
+    static boolean[] visited;
+    static int[] countArr;
+    public static void main(String[] args) {
+        var sc = new Scanner(System.in);
+        f = sc.nextInt(); // 총 층
+        s = sc.nextInt(); // 시작 층
+        g = sc.nextInt(); // 도착 층
+        u = sc.nextInt(); // u
+        d = sc.nextInt(); // d
+        dy = new int[]{u, -d};
+        countArr = new int[f+1];
+        visited = new boolean[f+1];
+        Arrays.fill(countArr, 0);
+        BFS();
+    }
+
+    private static void BFS() {
+        if (s == g) {
+            System.out.println(0);
+            return;
+        }
+        Queue<Integer> q = new LinkedList<>();
+        q.add(s);
+        visited[s] = true;
+        while (!q.isEmpty()) {
+            Integer poll = q.poll();
+            for (int i = 0; i < 2; i++) {
+                int Y = poll + dy[i];
+                //범위조건
+                if (Y < 1 || Y > f) {
+                    continue;
+                }
+                //방문조건
+                if (!visited[Y]) {
+                    countArr[Y] = countArr[poll] + 1;
+                    visited[Y] = true;
+                    //q 삽입
+                    q.add(Y);
+                }
+                //종료 조건
+                if(Y == g){
+                    System.out.println(countArr[Y]);
+                    return;
+                }
+            }
+        }
+        System.out.println("use the stairs");
+    }
+}
