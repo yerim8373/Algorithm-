@@ -14,9 +14,9 @@ public class Main{
 
         int[] dp = new int[num];
         // 10 20 10 30 20 50
-        // 1  2  1  2  2  2
-        //    2  1  3  2  3
-        //       1  3  2  3
+        // 1  2  0  2  2  2
+        //    2  0  3  2  3
+        //       0  3  2  3
         //          3  2  4
         Arrays.fill(dp,1);
 
@@ -39,5 +39,6 @@ public class Main{
         bw.flush();
         br.close();
         bw.close();
+
     }
 }
