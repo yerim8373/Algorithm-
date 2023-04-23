@@ -1,0 +1,69 @@
+
+public class 자물쇠와열쇠 {
+    public static void main(String[] args) {
+        int[][] key = {{0, 0, 0}, {1, 0, 0}, {0, 1, 1}};
+        int[][] lock = {{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
+
+        System.out.println(solution(key, lock));
+    }
+
+    public static boolean solution(int[][] key, int[][] lock) {
+        int n = lock.length;
+        int m = key.length;
+
+        int[][] extendedLock = new int[n * 3][n * 3];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                extendedLock[i + n][j + n] = lock[i][j];
+            }
+        }
+
+        for (int r = 0; r < 4; r++) {
+            key = rotate(key);
+            for (int x = 0; x < n * 2; x++) {
+                for (int y = 0; y < n * 2; y++) {
+                    for (int i = 0; i < m; i++) {
+                        for (int j = 0; j < m; j++) {
+                            extendedLock[x + i][y + j] += key[i][j];
+                        }
+                    }
+
+                    if (isUnlock(extendedLock, n)) {
+                        return true;
+                    }
+
+                    for (int i = 0; i < m; i++) {
+                        for (int j = 0; j < m; j++) {
+                            extendedLock[x + i][y + j] -= key[i][j];
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static int[][] rotate(int[][] key) {
+        int[][] rotatedKey = new int[key.length][key.length];
+        int n = key.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                rotatedKey[j][n - 1 - i] = key[i][j];
+            }
+        }
+        return rotatedKey;
+    }
+
+    public static boolean isUnlock(int[][] extendedLock, int n) {
+        for (int i = n; i < n * 2; i++) {
+            for (int j = n; j < n * 2; j++) {
+                if (extendedLock[i][j] != 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
