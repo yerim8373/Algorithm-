@@ -1,0 +1,32 @@
+package 백준.bfs_dfs;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class 좌표압축3 {
+    public static void main(String[] args) {
+        var sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        var arr = new int[n];
+        var sorted = new int[n];
+        var map = new HashMap<Integer, Integer>();
+//        var map = new TreeMap<Integer,Integer>();
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+            sorted[i] = arr[i];
+        }
+        Arrays.sort(sorted);
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            if (!map.containsKey(sorted[i])) {
+                map.put(sorted[i], index++);
+            }
+        }
+        StringBuilder sb= new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(map.get(arr[i]) + " ");
+        }
+        System.out.print(sb.toString());
+    }
+}
